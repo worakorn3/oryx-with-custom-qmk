@@ -523,13 +523,8 @@ bool rgb_matrix_indicators_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Achordion
   //if (!process_achordion(keycode, record)) { return false; }
-
   // SOCD Cleaner
-  if (!process_socd_cleaner(keycode, record, &socd_v)) { return false; }
-  if (!process_socd_cleaner(keycode, record, &socd_h)) { return false; }
-  
-  switch (keycode) {
-    // SOCD Cleaner
+  switch(keycode) {
     case SOCDON:  // Turn SOCD Cleaner on.
       if (record->event.pressed) {
         socd_cleaner_enabled = true;
@@ -545,7 +540,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         socd_cleaner_enabled = !socd_cleaner_enabled;
       }
       return false;
-    
+  }
+  
+  switch (keycode) {
     case ST_MACRO_0:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_Z) SS_DELAY(100) SS_TAP(X_COMMA));
