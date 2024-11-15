@@ -524,6 +524,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Achordion
   //if (!process_achordion(keycode, record)) { return false; }
   // SOCD Cleaner
+  if (!process_socd_cleaner(keycode, record, &socd_v)) { return false; }
+  if (!process_socd_cleaner(keycode, record, &socd_h)) { return false; }
   switch(keycode) {
     case SOCDON:  // Turn SOCD Cleaner on.
       if (record->event.pressed) {
