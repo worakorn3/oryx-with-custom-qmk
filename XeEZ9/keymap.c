@@ -529,6 +529,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_socd_cleaner(keycode, record, &socd_h)) { return false; }
   
   switch (keycode) {
+    // SOCD Cleaner
+    case SOCDON:  // Turn SOCD Cleaner on.
+      if (record->event.pressed) {
+        socd_cleaner_enabled = true;
+      }
+      return false;
+    case SOCDOFF:  // Turn SOCD Cleaner off.
+      if (record->event.pressed) {
+        socd_cleaner_enabled = false;
+      }
+      return false;
+    case SOCDTOG:  // Toggle SOCD Cleaner.
+      if (record->event.pressed) {
+        socd_cleaner_enabled = !socd_cleaner_enabled;
+      }
+      return false;
+    
     case ST_MACRO_0:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_Z) SS_DELAY(100) SS_TAP(X_COMMA));
@@ -598,23 +615,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
-      }
-      return false;
-
-    // SOCD Cleaner
-    case SOCDON:  // Turn SOCD Cleaner on.
-      if (record->event.pressed) {
-        socd_cleaner_enabled = true;
-      }
-      return false;
-    case SOCDOFF:  // Turn SOCD Cleaner off.
-      if (record->event.pressed) {
-        socd_cleaner_enabled = false;
-      }
-      return false;
-    case SOCDTOG:  // Toggle SOCD Cleaner.
-      if (record->event.pressed) {
-        socd_cleaner_enabled = !socd_cleaner_enabled;
       }
       return false;
   }
