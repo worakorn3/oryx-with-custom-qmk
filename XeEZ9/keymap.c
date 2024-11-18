@@ -3,14 +3,14 @@
 // Achordion
 //#include "features/achordion.h"
 // SOCD Cleaner
-#include "features/socd_cleaner.h"
+//#include "features/socd_cleaner.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #define ML_SAFE_RANGE SAFE_RANGE
 
 enum custom_keycodes {
-  SOCDON = SAFE_RANGE,
-  SOCDOFF,
-  SOCDTOG,
+  // SOCDON = SAFE_RANGE,
+  // SOCDOFF,
+  // SOCDTOG,
   RGB_SLD = ML_SAFE_RANGE,
   ST_MACRO_0,
   ST_MACRO_1,
@@ -34,8 +34,8 @@ enum custom_keycodes {
 //}
 
 // SOCD Cleaner
-socd_cleaner_t socd_v = {{KC_W, KC_S}, SOCD_CLEANER_LAST};
-socd_cleaner_t socd_h = {{KC_A, KC_D}, SOCD_CLEANER_LAST};
+// socd_cleaner_t socd_v = {{KC_W, KC_S}, SOCD_CLEANER_LAST};
+// socd_cleaner_t socd_h = {{KC_A, KC_D}, SOCD_CLEANER_LAST};
 //end custom lib
 
 enum tap_dance_codes {
@@ -520,29 +520,49 @@ bool rgb_matrix_indicators_user(void) {
   return true;
 }
 
+bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
+    // Check for alphabetic characters (A-Z)
+    if (keycode >= KC_A && keycode <= KC_Z) {
+        return true;
+    }
+
+    // Check for specific punctuation keys
+    switch (keycode) {
+        case KC_DOT:  // .
+        case KC_COMM: // ,
+        case KC_SCLN: // ;
+        case KC_QUOT: // '
+        case KC_SLSH: // /
+        case KC_BSLS: // \
+            return true;
+        default:
+            return false;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Achordion
   //if (!process_achordion(keycode, record)) { return false; }
   // SOCD Cleaner
-  if (!process_socd_cleaner(keycode, record, &socd_v)) { return false; }
-  if (!process_socd_cleaner(keycode, record, &socd_h)) { return false; }
-  switch(keycode) {
-    case SOCDON:  // Turn SOCD Cleaner on.
-      if (record->event.pressed) {
-        socd_cleaner_enabled = true;
-      }
-      return false;
-    case SOCDOFF:  // Turn SOCD Cleaner off.
-      if (record->event.pressed) {
-        socd_cleaner_enabled = false;
-      }
-      return false;
-    case SOCDTOG:  // Toggle SOCD Cleaner.
-      if (record->event.pressed) {
-        socd_cleaner_enabled = !socd_cleaner_enabled;
-      }
-      return false;
-  }
+  // if (!process_socd_cleaner(keycode, record, &socd_v)) { return false; }
+  // if (!process_socd_cleaner(keycode, record, &socd_h)) { return false; }
+  // switch(keycode) {
+  //   case SOCDON:  // Turn SOCD Cleaner on.
+  //     if (record->event.pressed) {
+  //       socd_cleaner_enabled = true;
+  //     }
+  //     return false;
+  //   case SOCDOFF:  // Turn SOCD Cleaner off.
+  //     if (record->event.pressed) {
+  //       socd_cleaner_enabled = false;
+  //     }
+  //     return false;
+  //   case SOCDTOG:  // Toggle SOCD Cleaner.
+  //     if (record->event.pressed) {
+  //       socd_cleaner_enabled = !socd_cleaner_enabled;
+  //     }
+  //     return false;
+  // }
   
   switch (keycode) {
     case ST_MACRO_0:
